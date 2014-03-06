@@ -17,7 +17,7 @@ RSpec::Support.define_optimized_require_for_rspec(:mocks) { |f| require_relative
   order_group
   error_generator
   space
-  extensions/marshal
+  marshal_extension
   mutate_const
   targets
   syntax

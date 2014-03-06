@@ -129,6 +129,24 @@ module RSpec
         @verify_partial_doubles
       end
 
+      # Monkey-patches `Marshal.dump` to enable dumping of mocked or stubbed
+      # objects. By default this will not work since RSpec mocks works by
+      # adding singleton methods that cannot be serialized. This patch removes
+      # these singleton methods before serialization.
+      #
+      # This method is idempotent.
+      def patch_marshal_to_support_partial_doubles!
+        RSpec::Mocks::MarshalExtension.patch!
+      end
+
+      # Remove monkey-patching done by
+      # `patch_marshal_to_support_partial_doubles!`
+      #
+      # This method is idempotent.
+      def unpatch_marshal!
+        RSpec::Mocks::MarshalExtension.unpatch!
+      end
+
       # @api private
       # Resets the configured syntax to the default.
       def reset_syntaxes_to_default
